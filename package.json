@@ -1,7 +1,11 @@
 {
   "name": "keystone-slacker",
   "description": "Slack plugin for KeystoneJS.",
-  "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/engagementgamelab/keystone-slacker.git"
+  },
+  "version": "0.0.4",
   "main": "app.js",
   "dependencies": {
     "sentencer": "^0.1.5"
