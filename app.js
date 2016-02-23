@@ -12,6 +12,15 @@ var KeystoneSlacker = (function(slack, keystone) {
     this._slackApiInst = slack;
     this._keystoneInst = keystone;
 
+    this.GetUsers = function(callback) {
+
+        slack.api('users.list', function(err, response) {
+
+            callback(response.members);
+        });
+    
+    },
+
     this.Post = function(model, document, accolade, custom_name, channel) {
 
         // Do nothing if document not new/modified
@@ -31,7 +40,7 @@ var KeystoneSlacker = (function(slack, keystone) {
         else if(custom_name !== undefined && typeof custom_name !== 'function')
             throw "Slack plugin: custom_name must be a function!";
 
-        var slack = _slackApiInst;
+        var slack = this._slackApiInst;
         var _ = require('underscore');
         var Sentencer = require('sentencer');
         var modelName =  model.modelName || document.constructor.modelName;
@@ -44,7 +53,7 @@ var KeystoneSlacker = (function(slack, keystone) {
                            ];
         var accoladeInd = Math.floor(Math.random() * affirmatives.length);
 
-        _keystoneInst.list('User').model.findById(document.updatedBy, function(err, user) {
+        this._keystoneInst.list('User').model.findById(document.updatedBy, function(err, user) {
 
             slack.api('users.list', function(err, response) {
 
